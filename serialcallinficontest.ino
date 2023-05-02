@@ -43,7 +43,7 @@ void setup() {
 
 void loop() {
   //Solicito lectura de punta
-  Serial.write("%");
+  //Serial.write("%");
   // if we get a valid byte, read analog ins:
   if (Serial.available() > 0) {
     // get incoming byte:
