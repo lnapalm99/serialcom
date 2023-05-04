@@ -16,6 +16,7 @@ void setup() {
 
 void loop() {
   // Read serial input:
+  Serial.write("%");
   while (Serial.available() > 0) {
     int inChar = Serial.read();
     if (isDigit(inChar)) {
@@ -24,22 +25,18 @@ void loop() {
     }
     // if you get a newline, print the string, then the string's value:
     if (inChar == '\n') {
-  
-  
+
+
       if (inString.toInt() > 100) {
-      digitalWrite(13, HIGH);
-      Serial.println("ALFA > 100");
-      Serial.println("alfa");
-      digitalWrite(Failpin, HIGH);
-      digitalWrite(Passpin, LOW);
-      
-    } else  {
-      Serial.println("ALFA < 100");
-      digitalWrite(13, LOW);
-      digitalWrite(Failpin, HIGH);
-      digitalWrite(Passpin, LOW);
-      
-    }
+        Serial.println("ALFA > 100");
+        digitalWrite(Failpin, HIGH);
+        digitalWrite(Passpin, LOW);
+
+      } else {
+        Serial.println("ALFA < 100");
+        digitalWrite(Passpin, HIGH);
+        digitalWrite(Failpin, LOW);
+      }
       // clear the string for new input:
       inString = "";
     }
