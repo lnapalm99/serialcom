@@ -1,6 +1,10 @@
 String inString = "";  // string to hold input
 #define Passpin 7
 #define Failpin 8
+#define LED_BUILTIN 13
+unsigned long lastmeasure = 0;
+
+
 
 void setup() {
   // Open serial communications and wait for port to open:
@@ -8,7 +12,7 @@ void setup() {
   while (!Serial) {
     ;  // wait for serial port to connect. Needed for native USB port only
   }
-
+  pinMode(LED_BUILTIN, OUTPUT);
   // send an intro:
   Serial.println("\n\nString toInt():");
   Serial.println();
@@ -16,7 +20,13 @@ void setup() {
 
 void loop() {
   // Read serial input:
-  Serial.write("%");
+  if (millis() - lastmeasure > 1000) {
+    lastmeasure = millis();
+
+    Serial.write("%\n");
+
+  }
+
   while (Serial.available() > 0) {
     int inChar = Serial.read();
     if (isDigit(inChar)) {
@@ -24,22 +34,26 @@ void loop() {
       inString += (char)inChar;
     }
     // if you get a newline, print the string, then the string's value:
-    if (inChar == '\n') {
+    //if (inChar == '\n') {
+    if (inString.length() == 5) {
+
+
 
 
       if (inString.toInt() > 100) {
         Serial.println("ALFA > 100");
         digitalWrite(Failpin, HIGH);
         digitalWrite(Passpin, LOW);
+        digitalWrite(LED_BUILTIN, LOW);
 
       } else {
         Serial.println("ALFA < 100");
         digitalWrite(Passpin, HIGH);
         digitalWrite(Failpin, LOW);
+        digitalWrite(LED_BUILTIN, LOW);
       }
       // clear the string for new input:
       inString = "";
     }
   }
-  delay(1000);
 }
