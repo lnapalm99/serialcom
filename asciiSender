@@ -1,0 +1,23 @@
+//ASCII 5 Byte Sender
+
+unsigned long lastmeasure = 0;
+unsigned long lastmeasure2 = 0;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (millis() - lastmeasure > 1000) {
+    lastmeasure = millis();
+
+    Serial.write("00010");
+    Serial.print("00010");
+  }
+  if (millis() - lastmeasure2 > 5500) {
+    lastmeasure2 = millis();
+    Serial.write("00120");
+    Serial.print("00120");
+  }
+}
