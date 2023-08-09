@@ -40,7 +40,8 @@ class MyCustomSensor : public PollingComponent, public Sensor {
     
     
     }
-
+    publish_state(valor);
+inString = "";
  // publish_state(42.0);
     // This will be called every "update_interval" milliseconds.
   }
